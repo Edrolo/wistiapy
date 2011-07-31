@@ -1,0 +1,94 @@
+[
+  {
+    "id": 181279,
+    "name": "Introducing the Slimlist",
+    "project": {
+      "id": 22570,
+      "name": "Slimlist for Website"
+    },
+    "type": "Video",
+    "section": "Trailers",
+    "progress": 1.0,
+    "thumbnail": {
+      "url": "http://www.wistia.com/path/to/thumbnail2.png",
+      "width": 100,
+      "height": 60
+    },
+    "duration": 126,
+    "created": "2010-08-15T18:47:39+00:00",
+    "updated": "2010-08-21T21:47:00+00:00",
+    "assets": [
+      {
+        "url": "http://www.wistia.com/path/to/original-file.bin",
+        "width": 640,
+        "height": 272,
+        "fileSize": 12345678,
+        "contentType": "video/quicktime",
+        "type": "Original"
+      },
+      {
+        "url": "http://www.wistia.com/path/to/mp4-version.bin",
+        "width": 640,
+        "height": 272,
+        "fileSize": 12123456,
+        "contentType": "video/mp4",
+        "type": "Mp4Video"
+      },
+      {
+        "url": "http://www.wistia.com/path/to/still-image.bin",
+        "width": 640,
+        "height": 272,
+        "fileSize": 92008,
+        "contentType": "image/jpeg",
+        "type": "StillImageFile"
+      }
+    ],
+    "embedCode": "<object width=\"640\" height=\"272\" id=\"wistia_181279\" classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"><param name=\"movie\" value=\"http://embed.wistia.com/flash/embed_player_v1.1.swf\"/><param name=\"allowfullscreen\" value=\"true\"/><param name=\"allowscriptaccess\" value=\"always\"/><param name=\"wmode\" value=\"opaque\"/><param name=\"flashvars\" value=\"videoUrl=http://embed.wistia.com/deliveries/14cb1fed9fb9d2c235be9e00e7998ad3a9e1a278.bin&stillUrl=http://embed.wistia.com/deliveries/43500c9644e43068d8995ecb5ddea82440419eaf.bin&unbufferedSeek=false&controlsVisibleOnLoad=false&autoPlay=false&endVideoBehavior=default&playButtonVisible=true&embedServiceURL=http://distillery.wistia.com/x&accountKey=wistia-production_97&mediaID=wistia-production_181279&mediaDuration=74.4\"/><embed src=\"http://embed.wistia.com/flash/embed_player_v1.1.swf\" width=\"640\" height=\"272\" name=\"wistia_181279\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" wmode=\"opaque\" flashvars=\"videoUrl=http://embed.wistia.com/deliveries/14cb1fed9fb9d2c235be9e00e7998ad3a9e1a278.bin&stillUrl=http://embed.wistia.com/deliveries/43500c9644e43068d8995ecb5ddea82440419eaf.bin&unbufferedSeek=false&controlsVisibleOnLoad=false&autoPlay=false&endVideoBehavior=default&playButtonVisible=true&embedServiceURL=http://distillery.wistia.com/x&accountKey=wistia-production_97&mediaID=wistia-production_181279&mediaDuration=74.4\"></embed></object><script src=\"http://embed.wistia.com/embeds/v.js\" charset=\"ISO-8859-1\"></script><script>if(!navigator.mimeTypes['application/x-shockwave-flash'])Wistia.VideoEmbed('wistia_181279',640,272,{videoUrl:'http://embed.wistia.com/deliveries/14cb1fed9fb9d2c235be9e00e7998ad3a9e1a278.bin',stillUrl:'http://embed.wistia.com/deliveries/43500c9644e43068d8995ecb5ddea82440419eaf.bin',distilleryUrl:'http://distillery.wistia.com/x',accountKey:'wistia-production_97',mediaId:'wistia-production_181279',mediaDuration:74.4})</script>"
+  },
+  {
+    "id": 181280,
+    "name": "Introducing the Slimlist 2",
+    "project": {
+      "id": 22570,
+      "name": "Slimlist for Website"
+    },
+    "type": "Video",
+    "section": "Trailers",
+    "progress": 1.0,
+    "thumbnail": {
+      "url": "http://www.wistia.com/path/to/thumbnail2.png",
+      "width": 100,
+      "height": 60
+    },
+    "duration": 126,
+    "created": "2010-08-15T18:47:39+00:00",
+    "updated": "2010-08-21T21:47:00+00:00",
+    "assets": [
+      {
+        "url": "http://www.wistia.com/path/to/original-file.bin",
+        "width": 640,
+        "height": 272,
+        "fileSize": 12345678,
+        "contentType": "video/quicktime",
+        "type": "Original"
+      },
+      {
+        "url": "http://www.wistia.com/path/to/mp4-version.bin",
+        "width": 640,
+        "height": 272,
+        "fileSize": 12123456,
+        "contentType": "video/mp4",
+        "type": "Mp4Video"
+      },
+      {
+        "url": "http://www.wistia.com/path/to/still-image.bin",
+        "width": 640,
+        "height": 272,
+        "fileSize": 92008,
+        "contentType": "image/jpeg",
+        "type": "StillImageFile"
+      }
+    ],
+    "embedCode": "<object width=\"640\" height=\"272\" id=\"wistia_181279\" classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"><param name=\"movie\" value=\"http://embed.wistia.com/flash/embed_player_v1.1.swf\"/><param name=\"allowfullscreen\" value=\"true\"/><param name=\"allowscriptaccess\" value=\"always\"/><param name=\"wmode\" value=\"opaque\"/><param name=\"flashvars\" value=\"videoUrl=http://embed.wistia.com/deliveries/14cb1fed9fb9d2c235be9e00e7998ad3a9e1a278.bin&stillUrl=http://embed.wistia.com/deliveries/43500c9644e43068d8995ecb5ddea82440419eaf.bin&unbufferedSeek=false&controlsVisibleOnLoad=false&autoPlay=false&endVideoBehavior=default&playButtonVisible=true&embedServiceURL=http://distillery.wistia.com/x&accountKey=wistia-production_97&mediaID=wistia-production_181279&mediaDuration=74.4\"/><embed src=\"http://embed.wistia.com/flash/embed_player_v1.1.swf\" width=\"640\" height=\"272\" name=\"wistia_181279\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" wmode=\"opaque\" flashvars=\"videoUrl=http://embed.wistia.com/deliveries/14cb1fed9fb9d2c235be9e00e7998ad3a9e1a278.bin&stillUrl=http://embed.wistia.com/deliveries/43500c9644e43068d8995ecb5ddea82440419eaf.bin&unbufferedSeek=false&controlsVisibleOnLoad=false&autoPlay=false&endVideoBehavior=default&playButtonVisible=true&embedServiceURL=http://distillery.wistia.com/x&accountKey=wistia-production_97&mediaID=wistia-production_181279&mediaDuration=74.4\"></embed></object><script src=\"http://embed.wistia.com/embeds/v.js\" charset=\"ISO-8859-1\"></script><script>if(!navigator.mimeTypes['application/x-shockwave-flash'])Wistia.VideoEmbed('wistia_181279',640,272,{videoUrl:'http://embed.wistia.com/deliveries/14cb1fed9fb9d2c235be9e00e7998ad3a9e1a278.bin',stillUrl:'http://embed.wistia.com/deliveries/43500c9644e43068d8995ecb5ddea82440419eaf.bin',distilleryUrl:'http://distillery.wistia.com/x',accountKey:'wistia-production_97',mediaId:'wistia-production_181279',mediaDuration:74.4})</script>"
+  }
+]
