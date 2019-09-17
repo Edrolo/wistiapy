@@ -1,24 +1,19 @@
 import logging
-import wistia.media
+import pytest
+import json
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+from wistia.media import Media
 
 log = logging.getLogger("test_wistia")
 
-"""
-Load the JSON.
-"""
-json_string = open("test_media.json").read()
-"""
-Create the Asset.
-"""
-md = wistia.media.MediasDecoder()
-medias = md.decode(json_string)
-print(medias)
-print(medias[0].assets)
-"""
-Make sure all the fields are set.
-"""
+
+@pytest.fixture
+def media_list():
+    json_string = open("test_media.json").read()
+    return json.loads(json_string)
+
+
+def test_media_parsing(media_list):
+    medias = [Media(media_data) for media_data in media_list]
+    assert len(medias) == 2
+    assert len(medias[0].assets) == 3

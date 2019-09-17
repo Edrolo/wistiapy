@@ -69,7 +69,7 @@ class Media:
         """
         The HTML code that would be used for embedding the media into a web page. 
         Please note that in JSON format, all quotes are escaped with a 
-        backslash (\) character. In XML, angle brackets (< and >) and 
+        backslash (\\) character. In XML, angle brackets (< and >) and 
         ampersands (&) are converted to their equivalent XML entities 
         ("&lt;", "&gt;", and "&amp;" respectively) to prevent XML parser errors.
         """
