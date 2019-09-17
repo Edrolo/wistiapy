@@ -2,9 +2,9 @@ import logging
 import wistia.media
 
 try:
-	import json
+    import json
 except ImportError:
-	import simplejson as json
+    import simplejson as json
 
 log = logging.getLogger("test_wistia")
 
