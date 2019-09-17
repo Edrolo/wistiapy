@@ -1,7 +1,10 @@
 import logging
-import requests
+from itertools import count
 
-from . import media
+import requests
+from wistia.media import Media
+
+from wistia.project import Project
 
 
 log = logging.getLogger("wistiapy")
@@ -36,30 +39,40 @@ class WistiaAPI:
 
     # Projects
 
-    def list_all_projects(self):
+    def list_projects(
+        self,
+        sort_by=None,  # None:ProjectID,  name, created, or updated
+        sort_direction=1,
+        page=1,
+        per_page=100,
+    ):
         # https://wistia.com/support/developers/data-api#projects_list
-        log.info("Listing all projects")
-        projects_url = "https://api.wistia.com/v1/projects.json"
-        projects_list = []
-        for page in range(1, 21):
-            next_page_of_projects = self.get(f"{projects_url}?page={page}")
-            if next_page_of_projects:
-                projects_list += next_page_of_projects
-            else:
-                break
-        else:
-            log.warning(
-                "More than 2000 Wistia projects! Might need to increase limits in code"
-            )
-        log.info("{} projects found".format(len(projects_list)))
-        return projects_list
+        params = {
+            "page": page,
+            "per_page": per_page,
+        }
+        if sort_by:
+            params['sort_by'] = sort_by
+            params['sort_direction'] = sort_direction
 
-    def show_project(self, project_hashed_id: str):
+        project_list = self.get("projects.json", params=params)
+        return [Project(project_data) for project_data in project_list]
+
+    def list_all_projects(self):
+        log.info("Listing all projects")
+        for page in count(start=1):
+            next_page_of_projects = self.list_projects(page=page)
+            if next_page_of_projects:
+                yield from next_page_of_projects
+            else:
+                return
+
+    def show_project(self, project_hashed_id: str) -> Project:
         # https://wistia.com/support/developers/data-api#projects_show
         rel_path = f"projects/{project_hashed_id}.json"
-        project_details = self.get(rel_path)
-        log.debug("Retrieved project details: {}".format(project_details))
-        return project_details
+        project = Project(self.get(rel_path))
+        log.debug("Retrieved project details: {}".format(project))
+        return project
 
     # https://wistia.com/support/developers/data-api#projects_create
     # https://wistia.com/support/developers/data-api#projects_update
@@ -101,13 +114,13 @@ class WistiaAPI:
 
         medias_list = self.get("medias.json", params=params)
 
-        return [media.Media(media_data) for media_data in medias_list]
+        return [Media(media_data) for media_data in medias_list]
 
-    def show_media(self, wistia_hashed_id: str):
+    def show_media(self, wistia_hashed_id: str) -> Media:
         # https://wistia.com/support/developers/data-api#medias_show
         rel_path = f"medias/{wistia_hashed_id}.json"
         media_data = self.get(rel_path)
-        return media_data
+        return Media(media_data)
 
     # https://wistia.com/support/developers/data-api#medias_update
     # https://wistia.com/support/developers/data-api#medias_delete

@@ -56,4 +56,4 @@ class Project:
         In the project show, you can get a list of the media associated with
         a project.
         """
-        self.medias = [media.Media(m) for m in project_dict["medias"]]
+        self.medias = [media.Media(m) for m in project_dict.get("medias", [])]
