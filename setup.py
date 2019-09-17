@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='wistiapy',
     version='0.0.1',
-    packages=['wistia'],
+    packages=find_packages(),
     url='',
     license='MIT',
     author='Matt Fisher',
@@ -23,4 +23,9 @@ setup(
     install_requires=[
         'requests>=2.22.0,<3.0.0',
     ],
+    entry_points={
+        'console_scripts': [
+            'wistia = wistia.cli:main'
+        ]
+    },
 )
