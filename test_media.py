@@ -11,7 +11,7 @@ log = logging.getLogger("test_wistia")
 """
 Load the JSON.
 """
-json_string = open('test_media.json').read()
+json_string = open("test_media.json").read()
 """
 Create the Asset.
 """
