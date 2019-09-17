@@ -1,10 +1,4 @@
-import logging
 from . import asset
-
-try:
-    import json
-except ImportError:
-    import simplejson as json
 
 
 class Media:
@@ -44,7 +38,7 @@ class Media:
         (optional) The title of the section in which the media appears. 
         This attribute is omitted if the media is not in a section (default).
         """
-        self.section = media_dict['section']
+        self.section = media_dict.get('section')
         """
         An object representing the thumbnail for this media. The attributes are 
         URL, width, and height.
@@ -69,9 +63,11 @@ class Media:
         An array of the assets available for this media. See the table below 
         for a description the fields in each asset object.
         """
-        self.assets = []
-        for asset_dict in media_dict['assets']:
-            self.assets.append(asset.Asset(asset_dict))
+        self.assets = [
+            asset.Asset(asset_dict)
+            for asset_dict in media_dict['assets']
+        ]
+
         """
         The HTML code that would be used for embedding the media into a web page. 
         Please note that in JSON format, all quotes are escaped with a 
@@ -81,22 +77,4 @@ class Media:
         """
         self.embedCode = media_dict['embedCode']
 
-
-class MediasDecoder(json.JSONDecoder):
-    """
-    Creates Medias from a json document.
-    """
-    def decode(self, json_string):
-        """
-        Map JSON part to Media object.
-
-        returns an array of Media objects.
-        """
-        # parse the fields into a media object.
-        # for each asset, create an asset object.
-        medias_dict = json.loads(json_string)
-        medias = []
-        for media in medias_dict:
-            medias.append(Media(media))
-        return medias
 
