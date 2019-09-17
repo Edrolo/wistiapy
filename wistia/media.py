@@ -1,10 +1,11 @@
 import logging
-import asset 
+from . import asset
 
 try:
 	import json
-except:
+except ImportError:
 	import simplejson as json
+
 
 class Media:
 	"""
@@ -15,7 +16,7 @@ class Media:
 		"""
 		A unique numeric identifier for the media within the system.
 		"""
-		self.id = media_dict['id'] 
+		self.id = media_dict['id']
 		"""
 		The display name of the media.
 		"""
@@ -78,7 +79,8 @@ class Media:
 		ampersands (&) are converted to their equivalent XML entities 
 		("&lt;", "&gt;", and "&amp;" respectively) to prevent XML parser errors.
 		"""
-		self.embedCode = media_dict['embedCode'] 
+		self.embedCode = media_dict['embedCode']
+
 
 class MediasDecoder(json.JSONDecoder):
 	"""
@@ -87,7 +89,7 @@ class MediasDecoder(json.JSONDecoder):
 	def decode(self, json_string):
 		"""
 		Map JSON part to Media object.
-	
+
 		returns an array of Media objects.
 		"""
 		# parse the fields into a media object.
@@ -96,5 +98,5 @@ class MediasDecoder(json.JSONDecoder):
 		medias = []
 		for media in medias_dict:
 			medias.append(Media(media))
-		return medias 
+		return medias
 

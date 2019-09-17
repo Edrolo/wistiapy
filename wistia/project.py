@@ -1,9 +1,11 @@
 import logging
-import media
+from . import media
+
 try:
 	import json
-except:
+except ImportError:
 	import simplejson as json
+
 
 class Project:
 	"""
@@ -29,22 +31,22 @@ class Project:
 		"""
 		The date that the project was last updated
 		"""
-		self.updated = project_dict['updated'] 
+		self.updated = project_dict['updated']
 		"""
 		A private hashed id, uniquely identifying the project within the 
 		system. Used for playlists and RSS feeds.
 		"""
-		self.hashedId = project_dict['hashedId'] 
+		self.hashedId = project_dict['hashedId']
 		"""
 		A boolean indicating whether or not anonymous uploads are enabled for the 
 		project.
 		"""
-		self.anonymousCanUpload = project_dict['anonymousCanUpload'] 
+		self.anonymousCanUpload = project_dict['anonymousCanUpload']
 		"""
 		A boolean indicating whether or not anonymous downloads are enabled for 
 		this project.
 		"""
-		self.anonymousCanDownload = project_dict['anonymousCanDownload'] 
+		self.anonymousCanDownload = project_dict['anonymousCanDownload']
 		"""
 		A boolean indicating whether the project is available for public 
 		(anonymous) viewing.
@@ -64,6 +66,7 @@ class Project:
 			for m in project_dict['medias']:
 				self.medias.append(media.Media(m))
 
+
 class ProjectsDecoder(json.JSONDecoder):
 	"""
 	Creates Projects from a json document.
@@ -77,6 +80,7 @@ class ProjectsDecoder(json.JSONDecoder):
 		for project in projects_dict:
 			projects.append(Project(project))
 		return projects
+
 
 class ProjectDecoder(json.JSONDecoder):
 	"""
