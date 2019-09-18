@@ -16,7 +16,7 @@ class Project:
         """
         self.name = project_dict["name"]
         """
-        The number of different medias that have been uploaded to the project. 
+        The number of different medias that have been uploaded to the project.
         """
         self.mediaCount = project_dict["mediaCount"]
         """
@@ -28,27 +28,27 @@ class Project:
         """
         self.updated = project_dict["updated"]
         """
-        A private hashed id, uniquely identifying the project within the 
+        A private hashed id, uniquely identifying the project within the
         system. Used for playlists and RSS feeds.
         """
         self.hashedId = project_dict["hashedId"]
         """
-        A boolean indicating whether or not anonymous uploads are enabled for the 
+        A boolean indicating whether or not anonymous uploads are enabled for the
         project.
         """
         self.anonymousCanUpload = project_dict["anonymousCanUpload"]
         """
-        A boolean indicating whether or not anonymous downloads are enabled for 
+        A boolean indicating whether or not anonymous downloads are enabled for
         this project.
         """
         self.anonymousCanDownload = project_dict["anonymousCanDownload"]
         """
-        A boolean indicating whether the project is available for public 
+        A boolean indicating whether the project is available for public
         (anonymous) viewing.
         """
         self.public = project_dict["public"]
         """
-        If the project is public, this field contains a string representing the 
+        If the project is public, this field contains a string representing the
         ID used for referencing the project in public URLs.
         """
         self.publicId = project_dict["publicId"]

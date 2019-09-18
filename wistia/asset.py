@@ -26,9 +26,9 @@ class Asset:
         """
         self.contentType = dict["contentType"]
         """
-        The internal type of the asset, describing how the asset should be used. 
-        Valid values are "OriginalFile", "FlashVideoFile", "Mp4VideoFile", 
-        "IPhoneVideoFile", "StillImageFile", "SwfFile", "Mp3AudioFile", 
+        The internal type of the asset, describing how the asset should be used.
+        Valid values are "OriginalFile", "FlashVideoFile", "Mp4VideoFile",
+        "IPhoneVideoFile", "StillImageFile", "SwfFile", "Mp3AudioFile",
         and "LargeImageFile"
         """
         self.type = dict["type"]
