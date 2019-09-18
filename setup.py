@@ -24,6 +24,6 @@ setup(
     keywords="wistia api client",
     include_package_data=False,
     install_requires=["requests>=2.22.0,<3.0.0"],
-    extras_require={"dev": ["black", "pytest"]},
+    extras_require={"dev": ["black", "pytest", "responses"]},
     entry_points={"console_scripts": ["wistia = wistia.cli:main"]},
 )
