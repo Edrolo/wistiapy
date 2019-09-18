@@ -6,10 +6,10 @@ setup(
     name="wistiapy",
     version=__version__,
     packages=find_packages(),
-    url="",
+    url="https://github.com/Edrolo/wistiapy",
     license="MIT",
     author="Matt Fisher",
-    author_email="mrpfisher@gmail.com",
+    author_email="matt@edrolo.com",
     description="A Python client for the Wistia API",
     classifiers=[
         "Development Status :: 3 - Alpha",
