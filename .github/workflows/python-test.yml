@@ -1,4 +1,4 @@
-name: Python package
+name: Python Tests
 
 on: [push]
 
@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: ${{ join('Set up Python', matrix.python-version) }}
+    - name: Set up Python  ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
@@ -36,27 +36,3 @@ jobs:
       run: |
         pip install .[dev]
         pytest
-
-  distribute:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate distribution archives
-        run: |
-          pip install .
-          pip install --upgrade setuptools wheel
-          python3 setup.py sdist bdist_wheel
-
-      - name: Publish package to Test PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.test_pypi_password }}
-          repository_url: https://test.pypi.org/legacy/
-
-      - name: Publish release package
-        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}
