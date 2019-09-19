@@ -2,7 +2,8 @@ name: Publish Python Package
 
 on:
   release:
-    types: [created]
+    types: [created, edited, published]
+    # published, unpublished, created, edited, deleted, or prereleased
 
 jobs:
   deploy:
@@ -23,20 +24,17 @@ jobs:
         run: |
           python3 setup.py sdist bdist_wheel
 
-      - name: Debug
-        run: |
-          echo ${{ toJSON(github) }}
-
-      - name: Publish package to Test PyPI
+      - name: Publish draft releases to Test PyPI
+        if: github.event.release.draft
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
           password: ${{ secrets.test_pypi_password }}
           repository_url: https://test.pypi.org/legacy/
 
-#      - name: Publish release package
-#        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
-#        uses: pypa/gh-action-pypi-publish@master
-#        with:
-#          user: __token__
-#          password: ${{ secrets.pypi_password }}
+      - name: Publish releases to PyPI
+        if: github.event.action == 'published'
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.pypi_password }}
