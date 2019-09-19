@@ -2,15 +2,20 @@ from setuptools import setup, find_packages
 
 from wistia import __version__
 
+with open('README.md', 'r', encoding='utf-8') as f:
+    readme = f.read()
+
 setup(
     name="wistiapy",
     version=__version__,
+    description="A Python client for the Wistia data API",
+    long_description=readme,
+    long_description_content_type='text/markdown',
     packages=find_packages(),
     url="https://github.com/Edrolo/wistiapy",
     license="MIT",
     author="Matt Fisher",
     author_email="matt@edrolo.com",
-    description="A Python client for the Wistia API",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
