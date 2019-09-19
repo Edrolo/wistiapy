@@ -38,7 +38,7 @@ jobs:
         pytest
 
   distribute:
-
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Generate distribution archives
