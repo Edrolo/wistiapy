@@ -37,21 +37,25 @@ jobs:
         pip install .[dev]
         pytest
 
-    - name: Generate distribution archives
-      run: |
-        pip install --upgrade setuptools wheel
-        python3 setup.py sdist bdist_wheel
+  distribute:
 
-    - name: Publish package to Test PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.test_pypi_password }}
-        repository_url: https://test.pypi.org/legacy/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate distribution archives
+        run: |
+          pip install --upgrade setuptools wheel
+          python3 setup.py sdist bdist_wheel
 
-    - name: Publish package
-      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.pypi_password }}
+      - name: Publish package to Test PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.test_pypi_password }}
+          repository_url: https://test.pypi.org/legacy/
+
+      - name: Publish release package
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.pypi_password }}
