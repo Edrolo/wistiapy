@@ -12,7 +12,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
-          python-version: '3.x'
+          python-version: '3.7'
 
       - name: Install dependencies
         run: |
@@ -22,6 +22,10 @@ jobs:
       - name: Generate distribution archives
         run: |
           python3 setup.py sdist bdist_wheel
+
+      - name: Debug
+        run: |
+          echo ${{ toJSON(github) }}
 
       - name: Publish package to Test PyPI
         uses: pypa/gh-action-pypi-publish@master
