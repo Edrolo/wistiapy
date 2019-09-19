@@ -57,3 +57,4 @@ venv/
 **/__pycache__/
 
 /wistiapy.egg-info/
+/dist/
