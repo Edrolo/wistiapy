@@ -10,7 +10,7 @@ from wistia.project import Project
 log = logging.getLogger("wistiapy")
 
 
-class WistiaAPI:
+class WistiaClient:
     API_BASE_URL = "https://api.wistia.com/v1/"
 
     def __init__(self, user="api", api_password=""):
