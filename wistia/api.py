@@ -5,6 +5,7 @@ import requests
 from wistia.schema import (
     Media,
     Project,
+    CaptionTrack,
 )
 
 log = logging.getLogger("wistiapy")
@@ -147,7 +148,7 @@ class WistiaClient:
     def list_captions(self, wistia_hashed_id: str):
         rel_path = f"medias/{wistia_hashed_id}/captions.json"
         caption_list = self.get(rel_path)
-        return caption_list
+        return [CaptionTrack(caption_data) for caption_data in caption_list]
 
     def create_captions(
         self,
@@ -180,7 +181,7 @@ class WistiaClient:
     def show_captions(self, wistia_hashed_id, language_code: str = "eng"):
         # https://wistia.com/support/developers/data-api#captions_show
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
-        return self.get(rel_path)
+        return CaptionTrack(self.get(rel_path))
 
     def update_captions(
         self, wistia_hashed_id, language_code, caption_filename="", caption_text=""
@@ -230,10 +231,10 @@ class WistiaClient:
         subtitle_file_name: str,
         replace=False,
         language_code: str = "eng",
-    ):
+    ) -> None:
         captions_list = self.list_captions(wistia_hashed_id=wistia_hashed_id)
         replaceable_captions = [
-            c for c in captions_list if c["language"] == language_code
+            track for track in captions_list if track.language == language_code
         ]
 
         if replace and replaceable_captions:
