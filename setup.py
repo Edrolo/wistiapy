@@ -1,13 +1,18 @@
-from setuptools import setup, find_packages
+import os
 
-from wistia import __version__
+from setuptools import setup, find_packages
 
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
+here = os.path.abspath(os.path.dirname(__file__))
+about = {}
+with open(os.path.join(here, 'wistia', '__version__.py'), 'r', encoding='utf-8') as f:
+    exec(f.read(), about)
+
 setup(
     name="wistiapy",
-    version=__version__,
+    version=about['__version__'],
     description="A Python client for the Wistia data API",
     long_description=readme,
     long_description_content_type='text/markdown',
