@@ -111,18 +111,21 @@ class DummyWistiaClient(WistiaClient):
             )
         )
 
-    def show_captions(self, wistia_hashed_id, language_code: str = "eng") -> CaptionTrack:
-        log.info(
-            f"WISTIA API CALL: show_captions({wistia_hashed_id!r}, language_code={language_code!r})"
-        )
-        appropriate_captions = [
+    def _captions_for_media_by_language(self, wistia_hashed_id, language_code):
+        return [
             track
             for track in self.medias[wistia_hashed_id].captions
             if track.language == language_code
         ]
-        if not appropriate_captions:
+
+    def show_captions(self, wistia_hashed_id, language_code: str = "eng") -> CaptionTrack:
+        log.info(
+            f"WISTIA API CALL: show_captions({wistia_hashed_id!r}, language_code={language_code!r})"
+        )
+        matching_captions = self._captions_for_media_by_language(wistia_hashed_id, language_code)
+        if not matching_captions:
             raise requests.HTTPError(response=FakeResponse(status_code=404))
-        return appropriate_captions[0]
+        return matching_captions[0]
 
     def update_captions(
         self, wistia_hashed_id, language_code, caption_filename="", caption_text=""
@@ -131,25 +134,17 @@ class DummyWistiaClient(WistiaClient):
             f"WISTIA API CALL: update_captions({wistia_hashed_id!r}, {language_code!r}, "
             f"caption_filename={caption_filename!r}, caption_text={caption_text!r})"
         )
-        appropriate_captions = [
-            track
-            for track in self.medias[wistia_hashed_id].captions
-            if track.language == language_code
-        ]
-        if not appropriate_captions:
+        matching_captions = self._captions_for_media_by_language(wistia_hashed_id, language_code)
+        if not matching_captions:
             raise requests.HTTPError(response=FakeResponse(status_code=404))
-        appropriate_captions[0]["text"] = caption_text
+        matching_captions[0].text = caption_text
 
     def delete_captions(self, wistia_hashed_id: str, language_code: str = "eng") -> None:
         log.info(f"WISTIA API CALL: delete_captions({wistia_hashed_id!r})")
-        appropriate_captions = [
-            track
-            for track in self.medias[wistia_hashed_id].captions
-            if track.language == language_code
-        ]
-        if not appropriate_captions:
+        matching_captions = self._captions_for_media_by_language(wistia_hashed_id, language_code)
+        if not matching_captions:
             raise requests.HTTPError(response=FakeResponse(status_code=404))
-        self.medias[wistia_hashed_id]["captions"].remove(appropriate_captions[0])
+        self.medias[wistia_hashed_id].captions.remove(matching_captions[0])
 
     def purchase_captions(self, wistia_hashed_id: str) -> None:
         log.info(f"WISTIA API CALL: purchase_captions({wistia_hashed_id!r})")
