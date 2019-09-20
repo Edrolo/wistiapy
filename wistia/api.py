@@ -1,5 +1,6 @@
 import logging
 from itertools import count
+from typing import Iterable
 
 import requests
 from wistia.schema import (
@@ -46,7 +47,7 @@ class WistiaClient:
         sort_direction=1,
         page=1,
         per_page=100,
-    ):
+    ) -> Iterable[Project]:
         # https://wistia.com/support/developers/data-api#projects_list
         params = {
             "page": page,
@@ -59,7 +60,7 @@ class WistiaClient:
         project_list = self.get("projects.json", params=params)
         return [Project(project_data) for project_data in project_list]
 
-    def list_all_projects(self):
+    def list_all_projects(self) -> Iterable[Project]:
         log.info("Listing all projects")
         for page in count(start=1):
             next_page_of_projects = self.list_projects(page=page)
@@ -98,7 +99,7 @@ class WistiaClient:
         project_id=None,
         name=None,
         media_type=None,
-    ):
+    ) -> Iterable[Media]:
         # https://wistia.com/support/developers/data-api#medias_list
         params = {
             "sort_by": sort_by,
@@ -133,7 +134,7 @@ class WistiaClient:
 
     # Customizations
 
-    def show_media_customizations(self, wistia_hashed_id: str):
+    def show_media_customizations(self, wistia_hashed_id: str) -> dict:
         # https://wistia.com/support/developers/data-api#customizations_show
         rel_path = f"medias/{wistia_hashed_id}/customizations.json"
         media_customizations_data = self.get(rel_path)
@@ -145,7 +146,7 @@ class WistiaClient:
 
     # Captions
 
-    def list_captions(self, wistia_hashed_id: str):
+    def list_captions(self, wistia_hashed_id: str) -> Iterable[CaptionTrack]:
         rel_path = f"medias/{wistia_hashed_id}/captions.json"
         caption_list = self.get(rel_path)
         return [CaptionTrack(caption_data) for caption_data in caption_list]
@@ -156,7 +157,7 @@ class WistiaClient:
         language_code: str = "eng",
         caption_filename: str = "",
         caption_text: str = "",
-    ):
+    ) -> None:
         # https://wistia.com/support/developers/data-api#captions_create
         # Empty 200: OK; 400: already exist; 404: video DNE
         rel_path = f"medias/{wistia_hashed_id}/captions.json"
@@ -178,14 +179,14 @@ class WistiaClient:
 
         r.raise_for_status()
 
-    def show_captions(self, wistia_hashed_id, language_code: str = "eng"):
+    def show_captions(self, wistia_hashed_id, language_code: str = "eng") -> CaptionTrack:
         # https://wistia.com/support/developers/data-api#captions_show
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
         return CaptionTrack(self.get(rel_path))
 
     def update_captions(
         self, wistia_hashed_id, language_code, caption_filename="", caption_text=""
-    ):
+    ) -> None:
         # https://wistia.com/support/developers/data-api#captions_update
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
         if caption_text:
@@ -200,15 +201,15 @@ class WistiaClient:
 
         r.raise_for_status()
 
-    def delete_captions(self, wistia_hashed_id: str, language_code: str = "eng"):
+    def delete_captions(self, wistia_hashed_id: str, language_code: str = "eng") -> None:
         # https://wistia.com/support/developers/data-api#captions_delete
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
-        return self.delete(rel_path)
+        self.delete(rel_path)
 
-    def purchase_captions(self, wistia_hashed_id: str):
+    def purchase_captions(self, wistia_hashed_id: str) -> None:
         # https://wistia.com/support/developers/data-api#captions_purchase
         rel_path = f"medias/{wistia_hashed_id}/captions/purchase.json"
-        return self.post(rel_path)
+        self.post(rel_path)
 
     def enable_captions_for_media(
         self, wistia_hashed_id: str, enabled: bool = True
