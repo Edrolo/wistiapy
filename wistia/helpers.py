@@ -1,6 +1,6 @@
 from os import environ
 
-from wistia.api import WistiaClient
+from wistia.client import WistiaClient
 from wistia.dummy import DummyWistiaClient
 
 import logging

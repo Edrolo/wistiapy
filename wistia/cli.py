@@ -5,7 +5,7 @@ import optparse
 import sys
 
 # simple CLI for wistia.
-import wistia.api
+import wistia.client
 
 log = logging.getLogger("wistiapy")
 
@@ -41,7 +41,7 @@ def main(args=None):
         raise Exception("Please supply your credentials with -c KEY")
 
     # list projects.
-    w = wistia.api.WistiaClient("api", options.cred)
+    w = wistia.client.WistiaClient("api", options.cred)
     if options.list_projects:
         projects = w.list_projects()
         for p in projects:

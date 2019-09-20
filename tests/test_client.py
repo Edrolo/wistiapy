@@ -3,7 +3,7 @@ import base64
 import responses
 import pytest
 
-from wistia.api import WistiaClient
+from wistia.client import WistiaClient
 
 
 def generate_http_basic_auth_string(username, password):

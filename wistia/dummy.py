@@ -10,7 +10,7 @@ from wistia.schema import (
     Project,
 )
 
-from wistia.api import WistiaClient
+from wistia.client import WistiaClient
 
 import logging
 
