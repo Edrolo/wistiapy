@@ -168,16 +168,15 @@ class Project:
 
 
 class CaptionTrack:
-
     def __init__(self, captions_dict):
 
         """A 3 character language code as specified by ISO-639–2."""
-        self.language: str = captions_dict['language']
+        self.language: str = captions_dict["language"]
         """The text of the captions for the specified language in SRT format."""
-        self.text: str = captions_dict['text']
+        self.text: str = captions_dict["text"]
         """The English name of the language"""
-        self.english_name: str = captions_dict['text']
+        self.english_name: str = captions_dict["text"]
         """The native name of the language"""
-        self.native_name: str = captions_dict['native_name']
+        self.native_name: str = captions_dict["native_name"]
         """Presumably for internal use only"""
-        self.is_draft: bool = captions_dict['is_draft']
+        self.is_draft: bool = captions_dict["is_draft"]

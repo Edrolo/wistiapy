@@ -3,11 +3,7 @@ from itertools import count
 from typing import Iterable
 
 import requests
-from wistia.schema import (
-    Media,
-    Project,
-    CaptionTrack,
-)
+from wistia.schema import Media, Project, CaptionTrack
 
 log = logging.getLogger("wistiapy")
 
@@ -49,13 +45,10 @@ class WistiaClient:
         per_page=100,
     ) -> Iterable[Project]:
         # https://wistia.com/support/developers/data-api#projects_list
-        params = {
-            "page": page,
-            "per_page": per_page,
-        }
+        params = {"page": page, "per_page": per_page}
         if sort_by:
-            params['sort_by'] = sort_by
-            params['sort_direction'] = sort_direction
+            params["sort_by"] = sort_by
+            params["sort_direction"] = sort_direction
 
         project_list = self.get("projects.json", params=params)
         return [Project(project_data) for project_data in project_list]
@@ -179,7 +172,9 @@ class WistiaClient:
 
         r.raise_for_status()
 
-    def show_captions(self, wistia_hashed_id, language_code: str = "eng") -> CaptionTrack:
+    def show_captions(
+        self, wistia_hashed_id, language_code: str = "eng"
+    ) -> CaptionTrack:
         # https://wistia.com/support/developers/data-api#captions_show
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
         return CaptionTrack(self.get(rel_path))
@@ -201,7 +196,9 @@ class WistiaClient:
 
         r.raise_for_status()
 
-    def delete_captions(self, wistia_hashed_id: str, language_code: str = "eng") -> None:
+    def delete_captions(
+        self, wistia_hashed_id: str, language_code: str = "eng"
+    ) -> None:
         # https://wistia.com/support/developers/data-api#captions_delete
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
         self.delete(rel_path)
