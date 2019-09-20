@@ -4,7 +4,7 @@ from os import path
 import pytest
 import json
 
-from wistia.media import Media
+from wistia.schema import Media
 
 log = logging.getLogger("test_wistia")
 

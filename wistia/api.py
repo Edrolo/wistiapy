@@ -2,10 +2,10 @@ import logging
 from itertools import count
 
 import requests
-from wistia.media import Media
-
-from wistia.project import Project
-
+from wistia.schema import (
+    Media,
+    Project,
+)
 
 log = logging.getLogger("wistiapy")
 
