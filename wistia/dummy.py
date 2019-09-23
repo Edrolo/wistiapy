@@ -44,7 +44,10 @@ class DummyWistiaClient(WistiaClient):
 
     def show_project(self, project_hashed_id: str) -> Project:
         log.info(f"WISTIA API CALL: show_project({project_hashed_id})")
-        return self.projects[project_hashed_id]
+        project = self.projects.get(project_hashed_id, None)
+        if not project:
+            raise requests.HTTPError(response=FakeResponse(status_code=404))
+        return project
 
     def list_medias(
         self,
@@ -67,7 +70,10 @@ class DummyWistiaClient(WistiaClient):
 
     def show_media(self, wistia_hashed_id: str) -> Media:
         log.info(f"WISTIA API CALL: show_media({wistia_hashed_id})")
-        return self.medias[wistia_hashed_id]
+        media = self.medias.get(wistia_hashed_id, None)
+        if not media:
+            raise requests.HTTPError(response=FakeResponse(status_code=404))
+        return media
 
     def show_media_customizations(self, wistia_hashed_id: str) -> dict:
         log.info(f"WISTIA API CALL: show_media_customizations({wistia_hashed_id!r})")
@@ -75,7 +81,10 @@ class DummyWistiaClient(WistiaClient):
 
     def list_captions(self, wistia_hashed_id: str) -> Iterable[CaptionTrack]:
         log.info(f"WISTIA API CALL: list_captions({wistia_hashed_id!r})")
-        return self.medias[wistia_hashed_id].captions
+        media = self.medias.get(wistia_hashed_id, None)
+        if not media:
+            raise requests.HTTPError(response=FakeResponse(status_code=404))
+        return media.captions
 
     def create_captions(
         self,
@@ -88,7 +97,11 @@ class DummyWistiaClient(WistiaClient):
             f"WISTIA API CALL: create_captions({wistia_hashed_id!r}, {language_code!r}, "
             f"caption_filename={caption_filename!r}, caption_text={caption_text!r})"
         )
-        self.medias[wistia_hashed_id].captions.append(
+        media = self.medias.get(wistia_hashed_id, None)
+        if not media:
+            raise requests.HTTPError(response=FakeResponse(status_code=404))
+
+        media.captions.append(
             CaptionTrack(
                 {
                     "language": language_code,
@@ -105,11 +118,9 @@ class DummyWistiaClient(WistiaClient):
         )
 
     def _captions_for_media_by_language(self, wistia_hashed_id, language_code):
-        return [
-            track
-            for track in self.medias[wistia_hashed_id].captions
-            if track.language == language_code
-        ]
+        media = self.medias.get(wistia_hashed_id, None)
+        captions = media.captions if media else []
+        return [track for track in captions if track.language == language_code]
 
     def show_captions(
         self, wistia_hashed_id, language_code: str = "eng"
