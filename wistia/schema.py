@@ -5,25 +5,15 @@ class Asset:
     """
 
     def __init__(self, dict):
-        """
-        A direct-access URL to the content of the asset.
-        """
+        """A direct-access URL to the content of the asset."""
         self.url = dict["url"]
-        """
-        (optional) The width of this specific asset, if applicable.
-        """
+        """(optional) The width of this specific asset, if applicable."""
         self.width = dict["width"]
-        """
-        (optional) The height of this specific asset, if applicable.
-        """
+        """(optional) The height of this specific asset, if applicable."""
         self.height = dict["height"]
-        """
-        The size of the asset file that's referenced by url, measured in bytes.
-        """
+        """The size of the asset file that's referenced by url, measured in bytes."""
         self.fileSize = dict["fileSize"]
-        """
-        The asset's content type.
-        """
+        """The asset's content type."""
         self.contentType = dict["contentType"]
         """
         The internal type of the asset, describing how the asset should be used.
@@ -41,13 +31,9 @@ class Media:
     """
 
     def __init__(self, media_dict):
-        """
-        A unique numeric identifier for the media within the system.
-        """
+        """A unique numeric identifier for the media within the system."""
         self.id = media_dict["id"]
-        """
-        The display name of the media.
-        """
+        """The display name of the media."""
         self.name = media_dict["name"]
         """
         An object representing information about the project in which the media
@@ -85,20 +71,15 @@ class Media:
         is unknown, this field is omitted.
         """
         self.duration = media_dict["duration"]
-        """
-        The date when the media was originally uploaded.
-        """
+        """The date when the media was originally uploaded."""
         self.created = media_dict["created"]
-        """
-        The date when the media was last changed.
-        """
+        """The date when the media was last changed."""
         self.updated = media_dict["updated"]
         """
         An array of the assets available for this media. See the table below
         for a description the fields in each asset object.
         """
         self.assets = [Asset(asset_dict) for asset_dict in media_dict["assets"]]
-
         """
         The HTML code that would be used for embedding the media into a web page.
         Please note that in JSON format, all quotes are escaped with a
@@ -110,30 +91,18 @@ class Media:
 
 
 class Project:
-    """
-    Wrapper for project results.
-    """
+    """Wrapper for project results."""
 
     def __init__(self, project_dict):
-        """
-        A unique numeric identifier for the project within the system.
-        """
+        """A unique numeric identifier for the project within the system."""
         self.id = project_dict["id"]
-        """
-        The project's display name.
-        """
+        """The project's display name."""
         self.name = project_dict["name"]
-        """
-        The number of different medias that have been uploaded to the project.
-        """
+        """The number of different medias that have been uploaded to the project."""
         self.mediaCount = project_dict["mediaCount"]
-        """
-        The date that the project was originally created.
-        """
+        """The date that the project was originally created."""
         self.created = project_dict["created"]
-        """
-        The date that the project was last updated
-        """
+        """The date that the project was last updated"""
         self.updated = project_dict["updated"]
         """
         A private hashed id, uniquely identifying the project within the
