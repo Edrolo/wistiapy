@@ -107,7 +107,7 @@ class Media:
 
 class Thumbnail:
     def __init__(self, thumbnail_dict):
-        self.URL = thumbnail_dict["URL"]
+        self.url = thumbnail_dict["url"]
         self.width = thumbnail_dict["width"]
         self.height = thumbnail_dict["height"]
 
