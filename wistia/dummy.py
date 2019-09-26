@@ -1,6 +1,8 @@
 from typing import NamedTuple, Iterable
 
 import requests
+
+from wistia.factories import MediaFactory
 from wistia.schema import Media, CaptionTrack, Project
 
 from wistia.client import WistiaClient
@@ -23,6 +25,10 @@ class DummyWistiaClient(WistiaClient):
 
         self.medias = {}
         self.projects = {}
+
+    def add_dummy_video(self, **kwargs):
+        new_media = MediaFactory(type="Video", **kwargs)
+        self.medias[new_media.hashed_id] = new_media
 
     def list_projects(
         self,
