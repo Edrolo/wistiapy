@@ -61,14 +61,14 @@ class Media:
         Post upload processing status. There are four statuses: 
         "queued", "processing", "ready", and "failed".
         """
-        self.status = media_dict["status"]
+        self.status = media_dict.get("status", "ready")
         """
         (optional) After a file has been uploaded to Wistia, it needs to be
         processed before it is available for online viewing. This field is
         a floating point value between 0 and 1 that indicates the progress of
         that processing.
         """
-        self.progress = media_dict["progress"]
+        self.progress = media_dict.get("progress", 1.0)
         """
         (optional) The title of the section in which the media appears.
         This attribute is omitted if the media is not in a section (default).

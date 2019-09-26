@@ -1,13 +1,17 @@
 [
   {
     "id": 181279,
+    "hashed_id": "abcde12345",
     "name": "Introducing the Slimlist",
+    "description": "Some interesting things",
     "project": {
       "id": 22570,
-      "name": "Slimlist for Website"
+      "name": "Slimlist for Website",
+      "hashed_id": "12345hdkbu"
     },
     "type": "Video",
     "section": "Trailers",
+    "status": "ready",
     "progress": 1.0,
     "thumbnail": {
       "url": "http://www.wistia.com/path/to/thumbnail2.png",
@@ -47,13 +51,17 @@
   },
   {
     "id": 181280,
+    "hashed_id": "12345vwxyz",
     "name": "Introducing the Slimlist 2",
+    "description": "Some more interesting things",
     "project": {
       "id": 22570,
-      "name": "Slimlist for Website"
+      "name": "Slimlist for Website",
+      "hashed_id": "noerubhe25"
     },
     "type": "Video",
     "section": "Trailers",
+    "status": "ready",
     "progress": 1.0,
     "thumbnail": {
       "url": "http://www.wistia.com/path/to/thumbnail2.png",
