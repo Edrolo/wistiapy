@@ -1,6 +1,6 @@
 import os
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.md", "r", encoding="utf-8") as f:
     readme = f.read()
@@ -33,7 +33,12 @@ setup(
     ],
     keywords="wistia api client",
     include_package_data=False,
-    install_requires=["requests>=2.22.0,<3.0.0", "factory-boy>=2.7.0,<3.0.0"],
+    install_requires=[
+        "requests>=2.22.0,<3.0.0",
+        "factory-boy>=2.7.0,<3.0.0",
+        "typesystem>=0.2.4",
+        "pyhumps>=1.3.1",
+    ],
     extras_require={"dev": ["black", "pytest", "responses"]},
     entry_points={"console_scripts": ["wistia = wistia.cli:main"]},
 )

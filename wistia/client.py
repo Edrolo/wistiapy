@@ -2,6 +2,7 @@ import logging
 from itertools import count
 from typing import Iterable
 
+import humps
 import requests
 from wistia.schema import Media, Project, CaptionTrack
 
@@ -20,7 +21,8 @@ class WistiaClient:
         url = f"{self.API_BASE_URL}{rel_path}"
         response = self.session.request(method=method, url=url, **kwargs)
         response.raise_for_status()
-        response_data = response.json()
+        # Some Wistia fields are camelCase - convert all to snake_case
+        response_data = humps.decamelize(response.json())
         return response_data
 
     def get(self, rel_path: str, params: dict = None):
