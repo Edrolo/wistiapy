@@ -53,7 +53,7 @@ class WistiaClient:
             params["sort_direction"] = sort_direction
 
         project_list = self.get("projects.json", params=params)
-        return [Project(project_data) for project_data in project_list]
+        return [Project.validate(project_data) for project_data in project_list]
 
     def list_all_projects(self) -> Iterable[Project]:
         log.info("Listing all projects")
@@ -67,8 +67,8 @@ class WistiaClient:
     def show_project(self, project_hashed_id: str) -> Project:
         # https://wistia.com/support/developers/data-api#projects_show
         rel_path = f"projects/{project_hashed_id}.json"
-        project = Project(self.get(rel_path))
-        log.debug("Retrieved project details: {}".format(project))
+        project_data = self.get(rel_path)
+        project = Project.validate(project_data)
         return project
 
     # https://wistia.com/support/developers/data-api#projects_create
@@ -111,13 +111,13 @@ class WistiaClient:
 
         medias_list = self.get("medias.json", params=params)
 
-        return [Media(media_data) for media_data in medias_list]
+        return [Media.validate(media_data) for media_data in medias_list]
 
     def show_media(self, wistia_hashed_id: str) -> Media:
         # https://wistia.com/support/developers/data-api#medias_show
         rel_path = f"medias/{wistia_hashed_id}.json"
         media_data = self.get(rel_path)
-        return Media(media_data)
+        return Media.validate(media_data)
 
     # https://wistia.com/support/developers/data-api#medias_update
     # https://wistia.com/support/developers/data-api#medias_delete
@@ -144,7 +144,7 @@ class WistiaClient:
     def list_captions(self, wistia_hashed_id: str) -> Iterable[CaptionTrack]:
         rel_path = f"medias/{wistia_hashed_id}/captions.json"
         caption_list = self.get(rel_path)
-        return [CaptionTrack(caption_data) for caption_data in caption_list]
+        return [CaptionTrack.validate(caption_data) for caption_data in caption_list]
 
     def create_captions(
         self,
@@ -179,7 +179,7 @@ class WistiaClient:
     ) -> CaptionTrack:
         # https://wistia.com/support/developers/data-api#captions_show
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
-        return CaptionTrack(self.get(rel_path))
+        return CaptionTrack.validate(self.get(rel_path))
 
     def update_captions(
         self, wistia_hashed_id, language_code, caption_filename="", caption_text=""
