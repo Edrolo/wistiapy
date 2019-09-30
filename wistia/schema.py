@@ -101,7 +101,7 @@ class Media(typesystem.Schema):
         description=(
             "(optional) The title of the section in which the media appears."
             "This attribute is omitted if the media is not in a section (default)."
-        )
+        ),
     )
     thumbnail = typesystem.Reference(
         to=Thumbnail, description="An object representing the thumbnail for this media"
@@ -133,7 +133,7 @@ class Media(typesystem.Schema):
             backslash (\) character. In XML, angle brackets (< and >) and
             ampersands (&) are converted to their equivalent XML entities
             ("&lt;", "&gt;", and "&amp;" respectively) to prevent XML parser errors.
-        """
+        """,
     )
 
 
@@ -191,7 +191,8 @@ class CaptionTrack(typesystem.Schema):
         description="A 3 character language code as specified by ISO-639–2"
     )
     text = typesystem.String(
-        description="The text of the captions for the specified language in SRT format"
+        trim_whitespace=False,
+        description="The text of the captions for the specified language in SRT format",
     )
     english_name = typesystem.String(description="The English name of the language")
     native_name = typesystem.String(description="The native name of the language")
