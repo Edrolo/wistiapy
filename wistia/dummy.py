@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import NamedTuple, Iterable
 
 import requests
@@ -24,6 +25,7 @@ class DummyWistiaClient(WistiaClient):
         )  # Make sure we don't hit the API in methods not yet overridden
 
         self.medias = {}
+        self.captions = defaultdict(list)
         self.projects = {}
 
     def add_dummy_video(self, **kwargs):
@@ -90,7 +92,7 @@ class DummyWistiaClient(WistiaClient):
         media = self.medias.get(wistia_hashed_id, None)
         if not media:
             raise requests.HTTPError(response=FakeResponse(status_code=404))
-        return media.captions
+        return self.captions[wistia_hashed_id]
 
     def create_captions(
         self,
@@ -107,7 +109,7 @@ class DummyWistiaClient(WistiaClient):
         if not media:
             raise requests.HTTPError(response=FakeResponse(status_code=404))
 
-        media.captions.append(
+        self.captions[wistia_hashed_id].append(
             CaptionTrack(
                 {
                     "language": language_code,
@@ -124,8 +126,7 @@ class DummyWistiaClient(WistiaClient):
         )
 
     def _captions_for_media_by_language(self, wistia_hashed_id, language_code):
-        media = self.medias.get(wistia_hashed_id, None)
-        captions = media.captions if media else []
+        captions = self.captions[wistia_hashed_id]
         return [track for track in captions if track.language == language_code]
 
     def show_captions(
@@ -165,7 +166,7 @@ class DummyWistiaClient(WistiaClient):
         )
         if not matching_captions:
             raise requests.HTTPError(response=FakeResponse(status_code=404))
-        self.medias[wistia_hashed_id].captions.remove(matching_captions[0])
+        self.captions[wistia_hashed_id].remove(matching_captions[0])
 
     def purchase_captions(self, wistia_hashed_id: str) -> None:
         log.info(f"WISTIA API CALL: purchase_captions({wistia_hashed_id!r})")
