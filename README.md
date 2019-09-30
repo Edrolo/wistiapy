@@ -3,6 +3,7 @@
 A Python client for the [Wistia Data API](https://wistia.com/support/developers/data-api)
 
 ![](https://github.com/Edrolo/wistiapy/workflows/Python%20Tests/badge.svg)
+[![PyPI version](https://badge.fury.io/py/wistiapy.svg)](https://badge.fury.io/py/wistiapy)
 
 ## Installation
 ```bash
