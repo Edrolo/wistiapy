@@ -28,7 +28,7 @@
         "height": 272,
         "fileSize": 12345678,
         "contentType": "video/quicktime",
-        "type": "Original"
+        "type": "OriginalFile"
       },
       {
         "url": "http://www.wistia.com/path/to/mp4-version.bin",
@@ -36,7 +36,7 @@
         "height": 272,
         "fileSize": 12123456,
         "contentType": "video/mp4",
-        "type": "Mp4Video"
+        "type": "Mp4VideoFile"
       },
       {
         "url": "http://www.wistia.com/path/to/still-image.bin",
@@ -78,7 +78,7 @@
         "height": 272,
         "fileSize": 12345678,
         "contentType": "video/quicktime",
-        "type": "Original"
+        "type": "OriginalFile"
       },
       {
         "url": "http://www.wistia.com/path/to/mp4-version.bin",
@@ -86,7 +86,7 @@
         "height": 272,
         "fileSize": 12123456,
         "contentType": "video/mp4",
-        "type": "Mp4Video"
+        "type": "Mp4VideoFile"
       },
       {
         "url": "http://www.wistia.com/path/to/still-image.bin",
