@@ -13,13 +13,12 @@ class AssetFactory(factory.Factory):
     """ "Mp4VideoFile", "MdMp4VideoFile, "HdMp4VideoFile", 
     """
 
-    url = ""
+    url = factory.Faker("image_url")
     width = "640"
     height = "360"
     file_size = "123456"
     content_type = "video/mp4"
     type = "Mp4VideoFile"
-    embed_code = ""
 
     class Params:
         size = "small"  # or "medium" or "large"
@@ -40,7 +39,7 @@ class MediaFactory(factory.Factory):
 
     id = factory.Sequence(lambda n: n)
     name = factory.Faker("sentence", nb_words=5, locale="en_US")
-    project = ""
+    project = None
 
     type = factory.fuzzy.FuzzyChoice(
         [
@@ -60,6 +59,8 @@ class MediaFactory(factory.Factory):
     created = factory.LazyFunction(datetime.now)
     updated = factory.LazyFunction(datetime.now)
     assets = factory.RelatedFactoryList(AssetFactory, size=lambda: random.randint(1, 6))
+
+    embed_code = ""  # embed_code is deprecated
 
 
 class ProjectFactory(factory.Factory):
