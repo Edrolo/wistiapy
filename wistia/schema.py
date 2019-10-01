@@ -30,7 +30,9 @@ class Asset(typesystem.Schema):
             "Mp4VideoFile",
             "MdMp4VideoFile",
             "HdMp4VideoFile",
-            "IPhoneVideoFile",
+            "HlsVideoFile",
+            "IphoneVideoFile",
+            "StoryboardFile",
             "StillImageFile",
             "SwfFile",
             "Mp3AudioFile",
@@ -62,6 +64,7 @@ class Media(typesystem.Schema):
         description="A unique alphanumeric identifier for this media."
     )
     description = typesystem.String(
+        allow_blank=True,
         description=(
             "A description for the media which usually appears near the top of the"
             "sidebar on the media’s page"
