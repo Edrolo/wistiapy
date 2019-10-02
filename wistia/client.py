@@ -2,7 +2,6 @@ import logging
 from itertools import count
 from typing import Iterable
 
-import humps
 import requests
 from wistia.schema import Media, Project, CaptionTrack
 
