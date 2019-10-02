@@ -1,5 +1,7 @@
 from schematics import types, models
 
+DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z"
+
 
 class Asset(models.Model):
     """
@@ -164,10 +166,12 @@ class Media(models.Model):
     )
     created = types.DateTimeType(
         required=True,
+        serialized_format=DATETIME_FORMAT,
         metadata=dict(description="The date when the media was originally uploaded."),
     )
     updated = types.DateTimeType(
         required=True,
+        serialized_format=DATETIME_FORMAT,
         metadata=dict(description="The date when the media was last changed."),
     )
     assets = types.ListType(
@@ -225,10 +229,12 @@ class Project(models.Model):
     )
     created = types.DateTimeType(
         required=True,
+        serialized_format=DATETIME_FORMAT,
         metadata=dict(description="The date that the project was originally created."),
     )
     updated = types.DateTimeType(
         required=True,
+        serialized_format=DATETIME_FORMAT,
         metadata=dict(description="The date that the project was last updated"),
     )
     anonymous_can_upload = types.BooleanType(
