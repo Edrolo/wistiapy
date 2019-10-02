@@ -176,7 +176,7 @@ class Media(models.Model):
     )
     assets = types.ListType(
         types.ModelType(Asset),
-        required=False,  # Not present in lists of Media?
+        required=False,
         metadata=dict(description="An array of the assets available for this media"),
     )
     embed_code = types.StringType(
@@ -275,7 +275,8 @@ class Project(models.Model):
     )
     medias = types.ListType(
         types.ModelType(Media),
-        required=False,
+        required=False,  # Not present in lists of Projects
+        serialize_when_none=False,
         metadata=dict(description="A list of the media associated with a project"),
     )
 
