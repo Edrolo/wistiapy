@@ -21,8 +21,7 @@ class WistiaClient:
         url = f"{self.API_BASE_URL}{rel_path}"
         response = self.session.request(method=method, url=url, **kwargs)
         response.raise_for_status()
-        # Some Wistia fields are camelCase - convert all to snake_case
-        response_data = humps.decamelize(response.json())
+        response_data = response.json()
         return response_data
 
     def get(self, rel_path: str, params: dict = None):
@@ -53,7 +52,10 @@ class WistiaClient:
             params["sort_direction"] = sort_direction
 
         project_list = self.get("projects.json", params=params)
-        return [Project.validate(project_data) for project_data in project_list]
+        return [
+            Project(project_data, strict=False)
+            for project_data in project_list
+        ]
 
     def list_all_projects(self) -> Iterable[Project]:
         log.info("Listing all projects")
@@ -68,7 +70,7 @@ class WistiaClient:
         # https://wistia.com/support/developers/data-api#projects_show
         rel_path = f"projects/{project_hashed_id}.json"
         project_data = self.get(rel_path)
-        project = Project.validate(project_data)
+        project = Project(project_data, strict=False)
         return project
 
     # https://wistia.com/support/developers/data-api#projects_create
@@ -111,13 +113,15 @@ class WistiaClient:
 
         medias_list = self.get("medias.json", params=params)
 
-        return [Media.validate(media_data) for media_data in medias_list]
+        return [
+            Media(media_data, strict=False) for media_data in medias_list
+        ]
 
     def show_media(self, wistia_hashed_id: str) -> Media:
         # https://wistia.com/support/developers/data-api#medias_show
         rel_path = f"medias/{wistia_hashed_id}.json"
         media_data = self.get(rel_path)
-        return Media.validate(media_data)
+        return Media(media_data, strict=False)
 
     # https://wistia.com/support/developers/data-api#medias_update
     # https://wistia.com/support/developers/data-api#medias_delete
@@ -144,7 +148,10 @@ class WistiaClient:
     def list_captions(self, wistia_hashed_id: str) -> Iterable[CaptionTrack]:
         rel_path = f"medias/{wistia_hashed_id}/captions.json"
         caption_list = self.get(rel_path)
-        return [CaptionTrack.validate(caption_data) for caption_data in caption_list]
+        return [
+            CaptionTrack(caption_data, strict=False)
+            for caption_data in caption_list
+        ]
 
     def create_captions(
         self,
@@ -179,7 +186,7 @@ class WistiaClient:
     ) -> CaptionTrack:
         # https://wistia.com/support/developers/data-api#captions_show
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
-        return CaptionTrack.validate(self.get(rel_path))
+        return CaptionTrack(self.get(rel_path))
 
     def update_captions(
         self, wistia_hashed_id, language_code, caption_filename="", caption_text=""

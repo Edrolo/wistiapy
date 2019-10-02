@@ -36,8 +36,7 @@ setup(
     install_requires=[
         "requests>=2.22.0,<3.0.0",
         "factory-boy>=2.7.0,<3.0.0",
-        "typesystem>=0.2.4",
-        "pyhumps>=1.3.1",
+        "schematics<=2.1.0,<3.0.0",
     ],
     extras_require={"dev": ["black", "pytest", "responses"]},
     entry_points={"console_scripts": ["wistia = wistia.cli:main"]},
