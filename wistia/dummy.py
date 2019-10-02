@@ -3,7 +3,6 @@ from typing import NamedTuple, Iterable
 
 import requests
 
-from wistia.factories import MediaFactory
 from wistia.schema import Media, CaptionTrack, Project
 
 from wistia.client import WistiaClient
@@ -29,7 +28,7 @@ class DummyWistiaClient(WistiaClient):
         self.projects = {}
 
     def add_dummy_video(self, **kwargs):
-        new_media = MediaFactory(type="Video", **kwargs)
+        new_media = Media.get_mock_object(overrides=dict(type="Video", **kwargs))
         self.medias[new_media.hashed_id] = new_media
 
     def list_projects(
