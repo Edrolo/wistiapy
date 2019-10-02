@@ -8,29 +8,35 @@ class Asset(models.Model):
     """
 
     url = types.URLType(
-        metadata=dict(description="A direct-access URL to the content of the asset")
+        required=True,
+        metadata=dict(description="A direct-access URL to the content of the asset"),
     )
     width = types.IntType(
+        required=True,
         metadata=dict(
             description="(optional) The width of this specific asset, if applicable"
-        )
+        ),
     )
     height = types.IntType(
+        required=True,
         metadata=dict(
             description="(optional) The height of this specific asset, if applicable"
-        )
+        ),
     )
     file_size = types.IntType(
         serialized_name="fileSize",
+        required=True,
         metadata=dict(
             description="The size of the asset file that's referenced by url, measured in bytes"
         ),
     )
     content_type = types.StringType(
         serialized_name="contentType",
+        required=True,
         metadata=dict(description="The asset's content type"),
     )
     type = types.StringType(
+        required=True,
         metadata=dict(
             description="The internal type of the asset, describing how the asset should be used"
         ),
@@ -54,36 +60,41 @@ class Asset(models.Model):
 
 
 class ProjectReference(models.Model):
-    id = types.IntType(metadata=dict(description=""))
-    name = types.StringType(metadata=dict(description=""))
-    hashed_id = types.StringType(metadata=dict(description=""))
+    id = types.IntType(required=True, metadata=dict(description=""))
+    name = types.StringType(required=True, metadata=dict(description=""))
+    hashed_id = types.StringType(required=True, metadata=dict(description=""))
 
 
 class Thumbnail(models.Model):
-    url = types.URLType(metadata=dict(description=""))
-    width = types.IntType(metadata=dict(description=""))
-    height = types.IntType(metadata=dict(description=""))
+    url = types.URLType(required=True, metadata=dict(description=""))
+    width = types.IntType(required=True, metadata=dict(description=""))
+    height = types.IntType(required=True, metadata=dict(description=""))
 
 
 class Media(models.Model):
     """ Wrapper for Wistia Media results """
 
     id = types.IntType(
+        required=True,
         metadata=dict(
             description="A unique numeric identifier for the media within the system."
-        )
+        ),
     )
-    name = types.StringType(metadata=dict(description="The display name of the media."))
+    name = types.StringType(
+        required=True, metadata=dict(description="The display name of the media.")
+    )
     hashed_id = types.StringType(
-        metadata=dict(description="A unique alphanumeric identifier for this media.")
+        required=True,
+        metadata=dict(description="A unique alphanumeric identifier for this media."),
     )
     description = types.StringType(
+        required=True,
         metadata=dict(
             description=(
                 "A description for the media which usually appears near the top of the"
                 "sidebar on the media’s page"
             )
-        )
+        ),
     )
     project = types.ModelType(
         ProjectReference,
@@ -93,6 +104,7 @@ class Media(models.Model):
         ),
     )
     type = types.StringType(
+        required=True,
         metadata=dict(description="A string representing what type of media this is"),
         choices=[
             "Video",
@@ -105,10 +117,14 @@ class Media(models.Model):
         ],
     )
     status = types.StringType(
+        required=True,
+        default="ready",
         metadata=dict(description="Post upload processing status"),
         choices=["queued", "processing", "ready", "failed"],
     )
     progress = types.FloatType(
+        required=True,
+        default=1.0,
         metadata=dict(
             description=(
                 "(optional) After a file has been uploaded to Wistia, it needs to be"
@@ -116,7 +132,7 @@ class Media(models.Model):
                 "a floating point value between 0 and 1 that indicates the progress of"
                 "that processing."
             )
-        )
+        ),
     )
     section = types.StringType(
         required=False,
@@ -129,11 +145,13 @@ class Media(models.Model):
     )
     thumbnail = types.ModelType(
         Thumbnail,
+        required=True,
         metadata=dict(
             description="An object representing the thumbnail for this media"
         ),
     )
     duration = types.FloatType(
+        required=False,
         metadata=dict(
             description=(
                 "(optional) For Audio or Video files, this field specifies the length"
@@ -141,16 +159,19 @@ class Media(models.Model):
                 "pages in the document. For other types of media, or if the duration"
                 "is unknown, this field is omitted."
             )
-        )
+        ),
     )
     created = types.DateTimeType(
-        metadata=dict(description="The date when the media was originally uploaded.")
+        required=True,
+        metadata=dict(description="The date when the media was originally uploaded."),
     )
     updated = types.DateTimeType(
-        metadata=dict(description="The date when the media was last changed.")
+        required=True,
+        metadata=dict(description="The date when the media was last changed."),
     )
     assets = types.ListType(
         types.ModelType(Asset),
+        required=False,  # Not present in lists of Media?
         metadata=dict(description="An array of the assets available for this media"),
     )
     embed_code = types.StringType(
@@ -176,32 +197,41 @@ class Project(models.Model):
     """Wrapper for project results."""
 
     id = types.IntType(
+        required=True,
         metadata=dict(
             description="A unique numeric identifier for the project within the system."
-        )
+        ),
     )
-    name = types.StringType(metadata=dict(description="The project's display name."))
+    name = types.StringType(
+        required=True, metadata=dict(description="The project's display name.")
+    )
     hashed_id = types.StringType(
+        required=True,
         metadata=dict(
             description=(
                 "A private hashed id, uniquely identifying the project within the"
                 "system. Used for playlists and RSS feeds"
             )
-        )
+        ),
     )
     media_count = types.IntType(
+        required=True,
+        default=0,
         serialized_name="mediaCount",
         metadata=dict(
             description="The number of different medias that have been uploaded to the project."
         ),
     )
     created = types.DateTimeType(
-        metadata=dict(description="The date that the project was originally created.")
+        required=True,
+        metadata=dict(description="The date that the project was originally created."),
     )
     updated = types.DateTimeType(
-        metadata=dict(description="The date that the project was last updated")
+        required=True,
+        metadata=dict(description="The date that the project was last updated"),
     )
     anonymous_can_upload = types.BooleanType(
+        required=True,
         serialized_name="anonymousCanUpload",
         metadata=dict(
             description=(
@@ -210,6 +240,7 @@ class Project(models.Model):
         ),
     )
     anonymous_can_download = types.BooleanType(
+        required=True,
         serialized_name="anonymousCanDownload",
         metadata=dict(
             description=(
@@ -218,13 +249,15 @@ class Project(models.Model):
         ),
     )
     public = types.BooleanType(
+        required=True,
         metadata=dict(
             description=(
                 "A boolean indicating whether the project is available for public (anonymous) viewing"
             )
-        )
+        ),
     )
     public_id = types.StringType(
+        required=False,
         serialized_name="publicId",
         metadata=dict(
             description=(
@@ -235,27 +268,30 @@ class Project(models.Model):
     )
     medias = types.ListType(
         types.ModelType(Media),
+        required=False,
         metadata=dict(description="A list of the media associated with a project"),
     )
 
 
 class CaptionTrack(models.Model):
     language = types.StringType(
+        required=True,
         metadata=dict(
             description="A 3 character language code as specified by ISO-639–2"
-        )
+        ),
     )
     text = types.StringType(
+        required=True,
         metadata=dict(
             description="The text of the captions for the specified language in SRT format"
-        )
+        ),
     )
     english_name = types.StringType(
-        metadata=dict(description="The English name of the language")
+        required=True, metadata=dict(description="The English name of the language")
     )
     native_name = types.StringType(
-        metadata=dict(description="The native name of the language")
+        required=True, metadata=dict(description="The native name of the language")
     )
     is_draft = types.BooleanType(
-        metadata=dict(description="Presumably for internal use only")
+        required=False, metadata=dict(description="Presumably for internal use only")
     )
