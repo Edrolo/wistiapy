@@ -123,7 +123,7 @@ class Media(models.Model):
         choices=["queued", "processing", "ready", "failed"],
     )
     progress = types.FloatType(
-        required=True,
+        required=False,
         default=1.0,
         metadata=dict(
             description=(
@@ -136,6 +136,7 @@ class Media(models.Model):
     )
     section = types.StringType(
         required=False,
+        serialize_when_none=False,
         metadata=dict(
             description=(
                 "(optional) The title of the section in which the media appears."
