@@ -46,7 +46,7 @@ class DummyWistiaClient(WistiaClient):
         return self.projects.values()
 
     def list_all_projects(self) -> Iterable[Project]:
-        log.info(f"WISTIA API CALL: list_all_projects()")
+        log.info('WISTIA API CALL: list_all_projects()')
         yield from self.projects.values()
 
     def show_project(self, project_hashed_id: str) -> Project:

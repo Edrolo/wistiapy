@@ -22,7 +22,7 @@ def wistia_client():
 @responses.activate
 def test_authentication_set_correctly_in_header(wistia_client):
     # Given
-    expected_url = f"https://api.wistia.com/v1/medias.json"
+    expected_url = 'https://api.wistia.com/v1/medias.json'
     responses.add(responses.GET, url=expected_url, json={}, status=200)
 
     # When
