@@ -20,8 +20,7 @@ class WistiaClient:
         url = f"{self.API_BASE_URL}{rel_path}"
         response = self.session.request(method=method, url=url, **kwargs)
         response.raise_for_status()
-        response_data = response.json()
-        return response_data
+        return response.json()
 
     def get(self, rel_path: str, params: dict = None):
         return self.request("GET", rel_path, params=params)
@@ -69,8 +68,7 @@ class WistiaClient:
         # https://wistia.com/support/developers/data-api#projects_show
         rel_path = f"projects/{project_hashed_id}.json"
         project_data = self.get(rel_path)
-        project = Project(project_data, strict=False)
-        return project
+        return Project(project_data, strict=False)
 
     # https://wistia.com/support/developers/data-api#projects_create
     # https://wistia.com/support/developers/data-api#projects_update
@@ -135,8 +133,7 @@ class WistiaClient:
     def show_media_customizations(self, wistia_hashed_id: str) -> dict:
         # https://wistia.com/support/developers/data-api#customizations_show
         rel_path = f"medias/{wistia_hashed_id}/customizations.json"
-        media_customizations_data = self.get(rel_path)
-        return media_customizations_data
+        return self.get(rel_path)
 
     # https://wistia.com/support/developers/data-api#customizations_create
     # https://wistia.com/support/developers/data-api#customizations_update
@@ -228,8 +225,7 @@ class WistiaClient:
         else:
             payload = {"plugin": {"captions-v1": None}}
 
-        media_customizations_data = self.put(rel_path, json=payload)
-        return media_customizations_data
+        return self.put(rel_path, json=payload)
 
     def upload_subtitle_file_to_wistia_video(
         self,
