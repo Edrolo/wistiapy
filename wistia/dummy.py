@@ -17,8 +17,8 @@ class FakeResponse(NamedTuple):
 
 
 class DummyWistiaClient(WistiaClient):
-    def __init__(self, user="api", api_password=""):
-        super().__init__(user, api_password)
+    def __init__(self, api_password=""):
+        super().__init__(api_password)
         self.session = (
             None
         )  # Make sure we don't hit the API in methods not yet overridden

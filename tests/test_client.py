@@ -1,16 +1,11 @@
-import base64
-
 import responses
 import pytest
 
 from wistia.client import WistiaClient
 
 
-def generate_http_basic_auth_string(username, password):
-    encoded_string = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode(
-        "ascii"
-    )
-    return f"Basic {encoded_string}"
+def generate_http_bearer_auth_string(password):
+    return f"Bearer {password}"
 
 
 @pytest.fixture
@@ -29,7 +24,7 @@ def test_authentication_set_correctly_in_header(wistia_client):
     wistia_client.list_medias()
 
     # Then
-    expected_auth_header = generate_http_basic_auth_string("api", "letmein")
+    expected_auth_header = generate_http_bearer_auth_string("letmein")
     assert expected_auth_header == responses.calls[0].request.headers["Authorization"]
 
 

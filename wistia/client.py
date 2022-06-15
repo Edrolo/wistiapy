@@ -11,10 +11,13 @@ log = logging.getLogger("wistiapy")
 class WistiaClient:
     API_BASE_URL = "https://api.wistia.com/v1/"
 
-    def __init__(self, user="api", api_password=""):
+    def __init__(self, api_password=""):
         # https://wistia.com/support/developers/data-api#authentication
         self.session = requests.Session()
-        self.session.auth = (user, api_password)
+        self.session.headers = {
+            "Authorization": f"Bearer {api_password}",
+            **self.session.headers
+        }
 
     def request(self, method, rel_path, **kwargs):
         url = f"{self.API_BASE_URL}{rel_path}"
