@@ -23,7 +23,8 @@ class WistiaClient:
         url = f"{self.API_BASE_URL}{rel_path}"
         response = self.session.request(method=method, url=url, **kwargs)
         response.raise_for_status()
-        return response.json()
+        response_data = response.json() if response.text else {}
+        return response_data
 
     def get(self, rel_path: str, params: dict = None):
         return self.request("GET", rel_path, params=params)
@@ -163,12 +164,12 @@ class WistiaClient:
         # Empty 200: OK; 400: already exist; 404: video DNE
         rel_path = f"medias/{wistia_hashed_id}/captions.json"
         if caption_text:
-            r = self.post(
+            self.post(
                 rel_path, data={"language": language_code, "caption_file": caption_text}
             )
         elif caption_filename:
             with open(caption_filename, "rb") as caption_file:
-                r = self.post(
+                self.post(
                     rel_path,
                     data={"language": language_code},
                     files={"caption_file": caption_file},
@@ -177,8 +178,6 @@ class WistiaClient:
             raise ValueError(
                 "create_captions requires subtitle_filename or subtitle_text"
             )
-
-        r.raise_for_status()
 
     def show_captions(
         self, wistia_hashed_id, language_code: str = "eng"
