@@ -1,4 +1,3 @@
-import base64
 import logging
 from os import path
 
@@ -30,26 +29,19 @@ def test_direct_instantiation_of_schema_is_deep(media_list):
     assert medias[0].thumbnail.url == media_list[0]["thumbnail"]["url"]
 
 
-def generate_http_basic_auth_string(username, password):
-    encoded_string = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode(
-        "ascii"
-    )
-    return f"Basic {encoded_string}"
-
-
 @responses.activate
 def test_authentication_set_correctly_in_header():
     # Given
     password = "let-me-in"
     client = WistiaClient(api_password=password)
-    expected_url = f"https://api.wistia.com/v1/medias.json"
+    expected_url = "https://api.wistia.com/v1/medias.json"
     responses.add(responses.GET, url=expected_url, json=[], status=200)
 
     # When
     client.list_medias()
 
     # Then
-    expected_auth_header = generate_http_basic_auth_string("api", password)
+    expected_auth_header = f"Bearer {password}"
     request, response = responses.calls[0]
     observed_auth_header = request.headers["Authorization"]
     assert observed_auth_header == expected_auth_header
