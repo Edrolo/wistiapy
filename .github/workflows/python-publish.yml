@@ -26,7 +26,7 @@ jobs:
 
       - name: Publish pre-releases to Test PyPI
         if: github.event.release.prerelease && !github.event.release.draft
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.test_pypi_password }}
@@ -34,7 +34,7 @@ jobs:
 
       - name: Publish releases to PyPI
         if: github.event.action == 'published' && !github.event.release.prerelease
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.pypi_password }}
