@@ -3,7 +3,8 @@ from itertools import count
 from typing import Iterable
 
 import requests
-from wistia.schema import Media, Project, CaptionTrack
+
+from wistia.schema import CaptionTrack, Media, Project
 
 log = logging.getLogger("wistiapy")
 
@@ -192,7 +193,7 @@ class WistiaClient:
         # https://wistia.com/support/developers/data-api#captions_update
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
         if caption_text:
-            r = self.session.put(rel_path, data={"caption_file": caption_text})
+            r = self.put(rel_path, data={"caption_file": caption_text})
         elif caption_filename:
             with open(caption_filename, "rb") as caption_file:
                 r = self.put(rel_path, files={"caption_file": caption_file})
