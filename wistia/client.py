@@ -193,16 +193,14 @@ class WistiaClient:
         # https://wistia.com/support/developers/data-api#captions_update
         rel_path = f"medias/{wistia_hashed_id}/captions/{language_code}.json"
         if caption_text:
-            r = self.put(rel_path, data={"caption_file": caption_text})
+            self.put(rel_path, data={"caption_file": caption_text})
         elif caption_filename:
             with open(caption_filename, "rb") as caption_file:
-                r = self.put(rel_path, files={"caption_file": caption_file})
+                self.put(rel_path, files={"caption_file": caption_file})
         else:
             raise ValueError(
                 "update_captions requires subtitle_filename or subtitle_text"
             )
-
-        r.raise_for_status()
 
     def delete_captions(
         self, wistia_hashed_id: str, language_code: str = "eng"

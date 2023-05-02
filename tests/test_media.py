@@ -12,6 +12,12 @@ from wistia.schema import Media
 log = logging.getLogger("test_wistia")
 
 
+EXAMPLE_CAPTIONS = """1
+00:00:00,000 --> 00:00:02,000
+This is the first caption
+"""
+
+
 @pytest.fixture
 def media_list():
     json_string = open(path.join(path.dirname(__file__), "test_media.json")).read()
@@ -60,3 +66,16 @@ def test_purchase_captions_hits_correct_endpoint():
     assert request.url == expected_url
     assert request.method == "POST"
     assert request.body is None
+
+
+@responses.activate
+def test_update_captions_hits_correct_endpoint():
+    media_hashed_id = "12345"
+    expected_url = f"https://api.wistia.com/v1/medias/{media_hashed_id}/captions/eng.json"
+    responses.add(responses.PUT, url=expected_url, json={}, status=200)
+
+    WistiaClient().update_captions(media_hashed_id, 'eng', caption_text=EXAMPLE_CAPTIONS)
+    request, response = responses.calls[0]
+    assert request.url == expected_url
+    assert request.method == "PUT"
+    assert request.body is not None
