@@ -40,6 +40,7 @@ setup(
         "requests>=2.22.0,<3.0.0",
         "factory-boy>=2.7.0,<3.0.0",
         "schematics>=2.1.1,<3.0.0",
+        "pydantic>=1.8.2,<2.0.0",
     ],
     extras_require={"dev": ["black", "pytest", "responses"]},
     entry_points={"console_scripts": ["wistia = wistia.cli:main"]},
