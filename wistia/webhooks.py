@@ -164,3 +164,20 @@ def compute_signature_hash(request_body: bytes, webhook_secret_key: str) -> str:
     return hmac.new(
         key=webhook_secret_key.encode(), msg=request_body, digestmod=hashlib.sha256
     ).hexdigest()
+
+
+def validate_webhook_signature(request_body: bytes, signature: str, secret_key: str) -> bool:
+    """
+    Validate the signature included in the request header against the hash of the request body.
+
+    Usage:
+    if validate_signature(
+        request_body=request.body,
+        signature=request.META.get('HTTP_X_WISTIA_SIGNATURE'),
+        secret_key=settings.WISTIA_WEBHOOK_SECRET_KEY,
+    ):
+        # Authenticated
+    """
+    return hmac.compare_digest(
+        signature, compute_signature_hash(request_body, secret_key)
+    )
