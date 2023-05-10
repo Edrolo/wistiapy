@@ -1,3 +1,25 @@
+"""
+Wistia Webhooks
+
+Wistia can send webhooks to your application when certain events happen in your account.
+
+See https://wistia.com/support/developers/webhooks
+
+Headers
+=======
+The POST request to your webhooks consumer will contain the following headers:
+
+Header	            Description
+----------------    ------------------------------------------------------------
+Host	            The URL of your consumer, which you provide when configuring a webhook.
+User-Agent	        Wistia-Webhooks/{VERSION}. The current version as at 2023-05-10 is 0.0.47.
+X-Wistia-Signature	An HMAC hexdigest of the POST body, computed using the secret_key provided
+                    when configuring the webhook. You should be using a sha256 HMAC hexdigests.
+Content-Type	    The output format will always be JSON, so this will always be application/json.
+Content-Length	    The byte length of the request body.
+"""
+
+
 import hashlib
 import hmac
 from datetime import datetime
