@@ -14,7 +14,7 @@ Header	            Description
 Host	            The URL of your consumer, which you provide when configuring a webhook.
 User-Agent	        Wistia-Webhooks/{VERSION}. The current version as at 2023-05-10 is 0.0.47.
 X-Wistia-Signature	An HMAC hexdigest of the POST body, computed using the secret_key provided
-                    when configuring the webhook. You should be using a sha256 HMAC hexdigests.
+                    when configuring the webhook. You should be using a sha256 HMAC hex digests.
 Content-Type	    The output format will always be JSON, so this will always be application/json.
 Content-Length	    The byte length of the request body.
 """
@@ -80,7 +80,7 @@ class MediaDeletedPayload(MediaPayload):
 
 class MediaUpdatedPayload(BaseModel):
     media: MediaInfo
-    previous_attributes: dict
+    previous_attributes: dict = Field(default_factory=dict)
 
 
 class MediaEvent(BaseModel):
@@ -147,7 +147,7 @@ def parse_webhook_event_delivery(event_data: Union[str, bytes, dict]) -> EventDe
     """
     Parse the event data from a Wistia webhook request.
     Raises ValidationError if the event data is invalid.
-    :param event_data: May be a JSON string, a bytes object, or a dict.
+    :param event_data: Can be a JSON string, a bytes object, or a dict.
     :return: EventDelivery
     """
     if isinstance(event_data, dict):

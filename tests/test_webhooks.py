@@ -5,6 +5,7 @@ import pytest
 
 from wistia.webhooks import (
     EventDelivery,
+    MediaUpdatedEvent,
     parse_webhook_event_delivery,
 )
 
@@ -137,6 +138,16 @@ def test_media_created_event():
     assert event.generated_at == datetime.strptime(
         media_created_event_data['generated_at'], "%Y-%m-%dT%H:%M:%SZ"
     ).replace(tzinfo=timezone.utc)
+
+
+def test_media_updated_event_does_not_require_previous_attributes():
+    updated_event_with_previous_attributes = MediaUpdatedEvent.parse_obj(media_updated_event_data)
+    assert 'thumbnail' in updated_event_with_previous_attributes.payload.previous_attributes
+    updated_event_without_previous_attributes = MediaUpdatedEvent.parse_obj({
+        **media_updated_event_data,
+        "payload": media_event_data_template['payload'],
+    })
+    assert updated_event_without_previous_attributes.payload.previous_attributes == {}
 
 
 @pytest.mark.parametrize("test_event_data,expected_event_type", [
