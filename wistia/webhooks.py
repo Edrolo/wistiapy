@@ -27,8 +27,13 @@ from typing_extensions import Annotated, Literal
 from typing import List, Union
 
 import uuid as uuid
-from pydantic import BaseModel, Field
 
+# noinspection PyUnresolvedReferences
+from pydantic import (
+    BaseModel,
+    Field,
+    ValidationError,
+)
 
 media_event_type_names = Literal[
     "media.created",
@@ -141,6 +146,7 @@ class EventDelivery(BaseModel):
 def parse_webhook_event_delivery(event_data: Union[str, bytes, dict]) -> EventDelivery:
     """
     Parse the event data from a Wistia webhook request.
+    Raises ValidationError if the event data is invalid.
     :param event_data: May be a JSON string, a bytes object, or a dict.
     :return: EventDelivery
     """
