@@ -128,12 +128,15 @@ media_deleted_event_data = {
 
 def test_media_created_event():
     media_created_event_delivery_data = {**delivery_template, "events": [media_created_event_data]}
+    # Duration tends to be `null` for creation events, sometimes also updated events
+    media_created_event_delivery_data['events'][0]['payload']['media']['duration'] = None
     delivery = EventDelivery(**media_created_event_delivery_data)
     assert delivery.hook.uuid == uuid.UUID(delivery_template['hook']['uuid'])
     event = delivery.events[0]
     assert event.type == "media.created"
     assert event.uuid == media_created_event_data['uuid']
     assert event.payload.media.id == media_created_event_data['payload']['media']['id']
+    assert event.payload.media.duration is None
     assert event.metadata['account_id'] == media_created_event_data['metadata']['account_id']
     assert event.generated_at == datetime.strptime(
         media_created_event_data['generated_at'], "%Y-%m-%dT%H:%M:%SZ"

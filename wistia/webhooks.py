@@ -24,7 +24,11 @@ import hashlib
 import hmac
 from datetime import datetime
 from typing_extensions import Annotated, Literal
-from typing import List, Union
+from typing import (
+    List,
+    Optional,
+    Union,
+)
 
 import uuid as uuid
 
@@ -62,7 +66,7 @@ class MediaInfo(BaseModel):
     id: str
     name: str
     url: str
-    duration: float
+    duration: Optional[float]
     thumbnail: Thumbnail
 
 
