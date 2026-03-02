@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wistiapy"
+dynamic = ["version"]
+description = "A Python client for the Wistia data API"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [
+    { name = "Matt Fisher", email = "mrpfisher@gmail.com" },
+    { name = "Danny Shaw", email = "danny@edrolo.com" },
+]
+keywords = ["wistia", "api", "client"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "requests>=2.22.0,<3.0.0",
+    "schematics>=2.1.1,<3.0.0",
+    "pydantic>=1.8.2,<2.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["black", "flake8", "pytest", "responses"]
+
+[project.urls]
+Homepage = "https://github.com/Edrolo/wistiapy"
+Repository = "https://github.com/Edrolo/wistiapy"
+
+[project.scripts]
+wistia = "wistia.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "wistia.__version__.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["wistia*"]
