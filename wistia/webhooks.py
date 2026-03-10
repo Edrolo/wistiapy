@@ -66,7 +66,7 @@ class MediaInfo(BaseModel):
     id: str
     name: str
     url: str
-    duration: Optional[float]
+    duration: Optional[float] = None
     thumbnail: Thumbnail
 
 
@@ -157,7 +157,7 @@ def parse_webhook_event_delivery(event_data: Union[str, bytes, dict]) -> EventDe
     if isinstance(event_data, dict):
         return EventDelivery(**event_data)
     else:
-        return EventDelivery.parse_raw(event_data)
+        return EventDelivery.model_validate_json(event_data)
 
 
 def compute_signature_hash(request_body: bytes, webhook_secret_key: str) -> str:

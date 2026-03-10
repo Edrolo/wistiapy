@@ -144,9 +144,9 @@ def test_media_created_event():
 
 
 def test_media_updated_event_does_not_require_previous_attributes():
-    updated_event_with_previous_attributes = MediaUpdatedEvent.parse_obj(media_updated_event_data)
+    updated_event_with_previous_attributes = MediaUpdatedEvent.model_validate(media_updated_event_data)
     assert 'thumbnail' in updated_event_with_previous_attributes.payload.previous_attributes
-    updated_event_without_previous_attributes = MediaUpdatedEvent.parse_obj({
+    updated_event_without_previous_attributes = MediaUpdatedEvent.model_validate({
         **media_updated_event_data,
         "payload": media_event_data_template['payload'],
     })
